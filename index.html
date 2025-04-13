@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<head lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindX Store</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <link rel="stylesheet" href="assets/css/product-card.css">
+</head>
+<body>
+    <header>
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">MindX Store</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.html">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.html">Danh mục</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="search.html">Tìm kiếm</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="contact.html">Liên hệ</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-4">
+                        <a href="wishlist.html" class="text-dark position-relative">
+                            <i class="fas fa-heart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
+                        <a href="cart.html" class="text-dark position-relative">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
+                        <div class="dropdown">
+                            <a href="login.html" class="text-dark d-none" id="loginBtn">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </a>
+                            <img src="assets/images/avatar-default.png" alt="Avatar" class="rounded-circle" width="32" data-bs-toggle="dropdown" style="cursor: pointer;">
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="dropdown-header">
+                                    <span class="user-email d-block text-muted small"></span>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user me-2"></i>Tài khoản</a></li>
+                                <li><a class="dropdown-item" href="cart.html"><i class="fas fa-box me-2"></i>Đơn hàng</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="mt-5">
+        <!-- Hero Slider -->
+        <section class="hero-slider">
+            <div class="slides">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80')">
+                    <div class="slide-content">
+                        <h1 class="display-4 fw-bold">Xu Hướng Thời Trang 2025</h1>
+                        <p class="lead">Khám phá bộ sưu tập mới nhất của chúng tôi</p>
+                        <a href="category.html" class="btn btn-light btn-lg">Xem ngay</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80')">
+                    <div class="slide-content">
+                        <h1 class="display-4 fw-bold">Phong Cách Mới</h1>
+                        <p class="lead">Định hình phong cách của riêng bạn</p>
+                        <a href="category.html" class="btn btn-light btn-lg">Khám phá</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80')">
+                    <div class="slide-content">
+                        <h1 class="display-4 fw-bold">Bộ Sưu Tập Mùa Xuân</h1>
+                        <p class="lead">Tươi mới và năng động</p>
+                        <a href="category.html" class="btn btn-light btn-lg">Mua sắm ngay</a>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-light slider-btn prev">❮</button>
+            <button class="btn btn-light slider-btn next">❯</button>
+            <div class="slider-dots"></div>
+        </section>
+
+        <!-- Search Section -->
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="input-group shadow-sm">
+                        <span class="input-group-text bg-white border-end-0">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" id="searchInput" placeholder="Tìm kiếm sản phẩm...">
+                        <button class="btn btn-primary" id="searchButton">Tìm kiếm</button>
+                    </div>
+                    <div id="searchResults" class="mt-3 d-none">
+                        <!-- Search results will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Brand Slider -->
+        <div class="bg-light brand-logo-section">
+            <div class="container">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/640px-H%26M-Logo.svg.png" alt="H&M">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://cdn.worldvectorlogo.com/logos/shopify.svg" alt="Shopify">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/640px-Amazon_logo.svg.png" alt="Amazon">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Levi%27s_logo.svg/640px-Levi%27s_logo.svg.png" alt="Levi's">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://1000logos.net/wp-content/uploads/2017/08/Obey-Logo.png" alt="Obey">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="brand-logo-container">
+                            <img src="https://logos-world.net/wp-content/uploads/2020/09/Lacoste-Logo.png" alt="Lacoste">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Section -->
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="text-center mb-4">Sản phẩm</h2>
+                    <div id="productGrid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                        <!-- Products will be loaded here using productTemplate.js -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Arrivals -->
+        <section class="container my-5 new-arrivals">
+            <h2 class="mb-4">New Arrivals <span class="text-primary">➜</span></h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1483721310020-03333e577078?auto=format&fit=crop&q=80" 
+                             class="card-img" alt="Sports & Outdoors">
+                        <div class="card-img-overlay">
+                            <div class="text-white">
+                                <h3 class="card-title">Sports & Outdoors</h3>
+                                <p class="card-text">Explore Now!</p>
+                                <span class="text-white">➜</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 overflow-hidden position-relative">
+                        <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&q=80" 
+                             class="card-img" alt="Fashion">
+                        <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
+                            <div class="text-white">
+                                <h3 class="h4">Fashion</h3>
+                                <p class="mb-2">Explore Now!</p>
+                                <span class="text-white">➜</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 overflow-hidden position-relative">
+                        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80" 
+                             class="card-img" alt="Tees & T-Shirt">
+                        <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
+                            <div class="text-white">
+                                <h3 class="h4">Tees & T-Shirt</h3>
+                                <p class="mb-2">Explore Now!</p>
+                                <span class="text-white">➜</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Young's Favourite -->
+        <section class="container my-5 young-favourite">
+            <h2 class="mb-4">Young's Favourite</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?auto=format&fit=crop&q=80" 
+                             class="card-img" alt="Trending on Instagram">
+                        <div class="card-img-overlay">
+                            <div class="text-white">
+                                <h3 class="card-title">Trending on Instagram</h3>
+                                <p class="card-text">Explore Now!</p>
+                                <span class="text-white">➜</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 overflow-hidden position-relative">
+                        <img src="https://images.unsplash.com/photo-1540221652346-e5dd6b50f3e7?auto=format&fit=crop&q=80" 
+                             class="card-img" alt="All Under $40">
+                        <div class="card-img-overlay d-flex align-items-end" style="background: linear-gradient(transparent, rgba(0,0,0,0.7));">
+                            <div class="text-white">
+                                <h3 class="h4">All Under $40</h3>
+                                <p class="mb-2">Explore Now!</p>
+                                <span class="text-white">➜</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- App Download -->
+        <section class="bg-light py-5 my-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h2 class="display-5 fw-bold mb-3">DOWNLOAD APP &<br>GET THE VOUCHER!</h2>
+                        <p class="lead mb-4">Get 30% off for first transaction using Rondovision mobile app for now.</p>
+                        <div class="d-flex gap-3">
+                            <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on App Store" height="40"></a>
+                            <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" height="40"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&q=80" 
+                            alt="Mobile App" 
+                            class="img-fluid rounded shadow" 
+                            style="max-height: 400px; object-fit: cover; width: auto;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Community -->
+        <section class="container my-5 text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="mb-3">THAM GIA CỘNG ĐỒNG MUA SẮM ĐỂ NHẬN ƯU ĐÃI HÀNG THÁNG</h2>
+                    <p class="mb-4">Nhập email của bạn bên dưới để trở thành thành viên của thế hệ trẻ năng động</p>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Nhập email của bạn">
+                        <button class="btn btn-primary" type="button">GỬI</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="container my-5">
+            <h2 class="text-center mb-4">Danh mục sản phẩm</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <a href="category.html?category=men" class="text-decoration-none">
+                        <div class="card category-card">
+                            <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&q=80" 
+                                 class="card-img" alt="Thời trang nam">
+                            <div class="card-img-overlay">
+                                <div class="text-white">
+                                    <h3 class="card-title">Thời trang nam</h3>
+                                    <p class="card-text">Khám phá các xu hướng mới nhất</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="category.html?category=women" class="text-decoration-none">
+                        <div class="card category-card">
+                            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80" 
+                                 class="card-img" alt="Thời trang nữ">
+                            <div class="card-img-overlay">
+                                <div class="text-white">
+                                    <h3 class="card-title">Thời trang nữ</h3>
+                                    <p class="card-text">Phong cách thời thượng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="bg-light py-5">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-truck fa-2x mb-3 text-primary"></i>
+                        <h3 class="h5">Miễn phí vận chuyển</h3>
+                        <p class="text-muted">Cho đơn hàng trên 500.000đ</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-undo fa-2x mb-3 text-primary"></i>
+                        <h3 class="h5">Đổi trả dễ dàng</h3>
+                        <p class="text-muted">30 ngày đổi trả miễn phí</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-headset fa-2x mb-3 text-primary"></i>
+                        <h3 class="h5">Hỗ trợ 24/7</h3>
+                        <p class="text-muted">Luôn sẵn sàng hỗ trợ bạn</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                        <i class="fas fa-shield-alt fa-2x mb-3 text-primary"></i>
+                        <h3 class="h5">Thanh toán an toàn</h3>
+                        <p class="text-muted">Bảo mật thông tin</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="h5 mb-3">MindX Store</h3>
+                    <p class="text-muted">Chúng tôi là đội ngũ thiết kế và phát triển tạo ra những trang web chất lượng cao</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-dark"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-dark"><i class="fab fa-vimeo-v"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="h5 mb-3">Tài Khoản</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="track-orders.html" class="text-decoration-none text-muted">Theo Dõi Đơn Hàng</a></li>
+                        <li><a href="shipping.html" class="text-decoration-none text-muted">Vận Chuyển</a></li>
+                        <li><a href="wishlist.html" class="text-decoration-none text-muted">Yêu Thích</a></li>
+                        <li><a href="my-account.html" class="text-decoration-none text-muted">Tài Khoản Của Tôi</a></li>
+                        <li><a href="order-history.html" class="text-decoration-none text-muted">Lịch Sử Đơn Hàng</a></li>
+                        <li><a href="returns.html" class="text-decoration-none text-muted">Đổi Trả</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="h5 mb-3">Thông Tin</h3>
+                    <ul class="list-unstyled">
+                        <li><a href="our-story.html" class="text-decoration-none text-muted">Về Chúng Tôi</a></li>
+                        <li><a href="careers.html" class="text-decoration-none text-muted">Tuyển Dụng</a></li>
+                        <li><a href="privacy-policy.html" class="text-decoration-none text-muted">Chính Sách Bảo Mật</a></li>
+                        <li><a href="terms.html" class="text-decoration-none text-muted">Điều Khoản & Điều Kiện</a></li>
+                        <li><a href="latest-news.html" class="text-decoration-none text-muted">Tin Tức Mới Nhất</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-muted">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h3 class="h5 mb-3">Liên Hệ Với Chúng Tôi</h3>
+                    <p class="mb-2">Có câu hỏi? Hãy gọi cho chúng tôi</p>
+                    <h4 class="h5 mb-3">+123 456 789</h4>
+                    <p class="mb-2"><i class="far fa-envelope me-2"></i>hotro@mindxstore.com</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i>Hà Nội / HCM, Việt Nam</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-md-0">© 2025 All Rights Reserved</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex justify-content-md-end gap-3">
+                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" height="25">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/800px-Mastercard-logo.svg.png" alt="Mastercard" height="25">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/2560px-Visa_Inc._logo.svg.png" alt="Visa" height="25">
+                        <img src="https://stripe.com/img/v3/home/social.png" alt="Stripe" height="25">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="scrollToTop" class="btn btn-dark rounded-circle position-fixed bottom-0 end-0 m-4">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/toast.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/product-actions.js"></script>
+    <script src="assets/js/productTemplate.js"></script>
+    <script src="assets/js/index.js"></script>
+    <script src="assets/js/scroll.js"></script>
+    <script src="assets/js/slider.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</body>
+</html>

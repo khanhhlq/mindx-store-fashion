@@ -1,0 +1,54 @@
+.app-download {
+    padding: 4rem 2rem;
+    background: #fff;
+}
+
+.app-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.app-text {
+    flex: 1;
+}
+
+.app-text h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.app-text p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.app-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.app-buttons img {
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.app-buttons img:hover {
+    transform: translateY(-3px);
+}
+
+.app-image {
+    flex: 1;
+    text-align: right;
+}
+
+.app-image img {
+    max-width: 100%;
+    height: auto;
+}

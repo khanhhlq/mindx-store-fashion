@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm - Fashion Store</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/product.css">
+    <link rel="stylesheet" href="assets/css/product-card.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="index.html">Fashion Store</a>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Trang chủ</a>
+                <a href="category.html" class="nav-link">Danh mục</a>
+                <a href="search.html" class="nav-link">Tìm kiếm</a>
+                <a href="contact.html" class="nav-link">Liên hệ</a>
+            </div>
+            <div class="user-actions">
+                <a href="wishlist.html" class="icon-link">
+                    <i class="fas fa-heart"></i>
+                    <span class="wishlist-count">0</span>
+                </a>
+                <a href="cart.html" class="icon-link"image.png>
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </a>
+                <div class="user-menu">
+                    <a href="login.html" class="icon-link" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                    <div class="profile-dropdown" style="display: none;">
+                        <img src="assets/images/avatar-default.png" alt="Avatar" class="avatar" id="userAvatar">
+                        <div class="dropdown-content">
+                            <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="product-container">
+            <div class="product-images">
+                <div class="main-image">
+                    <img id="mainImage" src="" alt="Product Image">
+                </div>
+            </div>
+            <div class="product-details">
+                <h1 id="productTitle"></h1>
+                <p class="price" id="productPrice"></p>
+                <div class="product-description" id="productDescription"></div>
+                <div class="product-actions">
+                    <div class="quantity-selector">
+                        <button id="decreaseQuantity">-</button>
+                        <input type="number" id="quantity" value="1" min="1">
+                        <button id="increaseQuantity">+</button>
+                    </div>
+                    <button id="addToCartBtn" class="add-to-cart">
+                        Thêm vào giỏ hàng
+                    </button>
+                    <button id="addToWishlistBtn" class="add-to-wishlist">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-products">
+            <h2>Sản phẩm liên quan</h2>
+            <div id="relatedProducts" class="product-grid">
+                <!-- Related products will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>MindX Store</h3>
+                <p>We are a team of designers and developers that create high quality Website</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-vimeo-v"></i></a>
+                </div>
+            </div>
+    
+            <div class="footer-section">
+                <h3>My Account</h3>
+                <ul>
+                    <li><a href="track-orders.html">Track Orders</a></li>
+                    <li><a href="shipping.html">Shipping</a></li>
+                    <li><a href="wishlist.html">Wishlist</a></li>
+                    <li><a href="my-account.html">My Account</a></li>
+                    <li><a href="order-history.html">Order History</a></li>
+                    <li><a href="returns.html">Returns</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Information</h3>
+                <ul>
+                    <li><a href="our-story.html">Our Story</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="latest-news.html">Latest News</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section">
+                <h3>Talk To Us</h3>
+                <p>Got Questions? Call us</p>
+                <h4>+123 456 789</h4>
+                <p><i class="far fa-envelope"></i> support@mindxstore.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Hanoi / HCM, VN</p>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <div class="copyright">
+                <p>© 2023 All Rights Reserved</p>
+            </div>
+            <div class="payment-methods">
+                <img src="assets/images/payment/paypal.png" alt="PayPal">
+                <img src="assets/images/payment/visa.png" alt="Visa">
+                <img src="assets/images/payment/mastercard.png" alt="Mastercard">
+                <img src="assets/images/payment/stripe.png" alt="Stripe">
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/product-actions.js"></script>
+    <script src="assets/js/productTemplate.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/product.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
