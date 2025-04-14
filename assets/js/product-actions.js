@@ -45,7 +45,10 @@ function createToast(message, type = 'success') {
 // Add to cart function
 function addToCart(productId) {
     try {
-        if (!cart.includes(productId)) {
+        // Check if product already exists in cart
+        const existingProduct = cart.find(item => item === productId);
+        
+        if (!existingProduct) {
             cart.push(productId);
             localStorage.setItem('cart', JSON.stringify(cart));
             updateBadges();

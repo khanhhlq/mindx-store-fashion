@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearCartBtn.addEventListener('click', () => this.clearCart());
             }
 
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', () => this.checkout());
+            }
+
             const productGrid = document.getElementById('productGrid');
             if (productGrid) {
                 productGrid.addEventListener('click', (e) => {
@@ -89,12 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             productGrid.innerHTML = this.items.map(item => {
-                const card = createProductCard(item);
                 const itemTotal = item.price * item.quantity;
                 return `
                     <div class="col">
                         <div class="card h-100">
-                            ${card}
+                            <img src="${item.image}" class="card-img-top p-3" alt="${item.title}" style="height: 200px; object-fit: contain;">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.title}</h5>
+                                <p class="card-text text-danger">${new Intl.NumberFormat('vi-VN', {
+                                    style: 'currency',
+                                    currency: 'VND'
+                                }).format(item.price)}</p>
+                            </div>
                             <div class="card-footer bg-white border-top-0">
                                 <div class="d-flex flex-column gap-2">
                                     <div class="d-flex align-items-center justify-content-between">
@@ -154,6 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Đã xóa toàn bộ giỏ hàng');
         },
 
+        checkout() {
+            if (this.items.length === 0) {
+                showToast('Giỏ hàng trống', 'danger');
+                return;
+            }
+            showToast('Thanh toán thành công!');
+            this.clearCart();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        },
+
         saveCart() {
             const cartData = this.items.map(item => ({
                 id: item.id,
@@ -208,5 +231,7 @@ function showToast(message, type = 'success') {
     const bsToast = new bootstrap.Toast(toast);
     bsToast.show();
 
-    toast.addEventListener('hidden.bs.toast', () => toast.remove());
+    toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+    });
 }

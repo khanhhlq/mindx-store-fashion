@@ -10,10 +10,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     let currentProducts = [];
 
-    // Load initial products
     await loadInitialProducts();
 
-    // Event Listeners
     searchButton.addEventListener('click', handleSearch);
     
     searchInput.addEventListener('keypress', function(e) {
@@ -33,14 +31,13 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     });
 
-    // Handle product clicks
     productGrid.addEventListener('click', function(e) {
         const productLink = e.target.closest('a');
         if (productLink && !e.target.closest('button')) {
             e.preventDefault();
             const card = productLink.closest('.card');
             if (card && card.dataset.productId) {
-                window.location.href = `product-detail.html?id=${card.dataset.productId}`;
+                window.location.href = `product.html?id=${card.dataset.productId}`;
             }
         }
     });
@@ -89,7 +86,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         const priceRange = priceFilter.value;
         const sortBy = sortFilter.value;
 
-        // Search filter
         if (query) {
             filtered = filtered.filter(product => 
                 product.title.toLowerCase().includes(query) ||
@@ -97,26 +93,28 @@ document.addEventListener('DOMContentLoaded', async function() {
             );
         }
 
-        // Category filter
         if (category) {
             filtered = filtered.filter(product => 
                 product.category === category
             );
         }
 
-        // Price filter
         if (priceRange) {
-            const [min, max] = priceRange.split('-').map(Number);
             filtered = filtered.filter(product => {
-                const priceInThousands = product.price / 1000;
-                if (max) {
-                    return priceInThousands >= min && priceInThousands <= max;
+                // Trường hợp trên 500.000đ
+                if (priceRange === 'Trên 500.000đ') {
+                    return product.price > 500000;
                 }
-                return priceInThousands >= min;
+                
+                // Các khoảng giá khác
+                const [min, max] = priceRange.split('-').map(Number);
+                if (max) {
+                    return product.price >= min * 1000 && product.price <= max * 1000;
+                }
+                return product.price >= min * 1000;
             });
         }
 
-        // Sort products
         if (sortBy) {
             const sortFunctions = {
                 'price-asc': (a, b) => a.price - b.price,
@@ -139,11 +137,59 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         noResults.style.display = 'none';
         productGrid.innerHTML = products.map(product => {
-            const card = createProductCard(product);
+            const discountedPrice = product.discount ? Math.round(product.price / (1 - product.discount / 100)) : null;
+            
             return `
                 <div class="col">
-                    <div class="card" data-product-id="${product.id}">
-                        ${card}
+                    <div class="card h-100" data-product-id="${product.id}">
+                        <a href="product.html?id=${product.id}" class="text-decoration-none">
+                            <div class="position-relative">
+                                <img src="${product.image}" class="card-img-top p-3" alt="${product.title}" style="height: 200px; object-fit: contain;">
+                                ${product.discount ? `
+                                    <div class="position-absolute top-0 start-0 m-3">
+                                        <span class="badge bg-danger">-${product.discount}%</span>
+                                    </div>
+                                ` : ''}
+                                ${product.isNew ? `
+                                    <div class="position-absolute top-0 end-0 m-3">
+                                        <span class="badge bg-success">Mới</span>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </a>
+                        <div class="card-body d-flex flex-column">
+                            <a href="product.html?id=${product.id}" class="text-decoration-none text-dark">
+                                <h5 class="card-title text-truncate">${product.title}</h5>
+                            </a>
+                            <div class="mb-2">
+                                <div class="text-warning">
+                                    ${Array(Math.floor(product.rating)).fill('<i class="fas fa-star"></i>').join('')}
+                                </div>
+                                <small class="text-muted">(${product.reviews} đánh giá)</small>
+                            </div>
+                            <div class="mt-auto">
+                                <div class="d-flex align-items-center gap-2 mb-3">
+                                    <span class="h5 text-danger m-0">${new Intl.NumberFormat('vi-VN', {
+                                        style: 'currency',
+                                        currency: 'VND'
+                                    }).format(product.price)}</span>
+                                    ${discountedPrice ? `
+                                        <span class="text-muted text-decoration-line-through">${new Intl.NumberFormat('vi-VN', {
+                                            style: 'currency',
+                                            currency: 'VND'
+                                        }).format(discountedPrice)}</span>
+                                    ` : ''}
+                                </div>
+                                <div class="d-flex justify-content-between gap-2">
+                                    <button class="btn btn-danger flex-grow-1" onclick="addToCart(${product.id})">
+                                        <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
+                                    </button>
+                                    <button class="btn btn-outline-secondary" onclick="addToWishlist(${product.id})">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;

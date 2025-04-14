@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             products = products.map(product => ({
                 id: product.id,
                 title: product.title,
-                price: Math.round(product.price * 300000), // Convert USD to VND
+                price: Math.round(product.price * 23000), // Convert USD to VND
                 image: product.image,
                 rating: product.rating.rate,
                 reviews: product.rating.count,
