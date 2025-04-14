@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 wishlistBadge.textContent = window.wishlist?.length || 0;
             }
             if (cartBadge) {
-                cartBadge.textContent = window.cart?.length || 0;
+                const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                cartBadge.textContent = cartItems.length;
             }
         },
 
