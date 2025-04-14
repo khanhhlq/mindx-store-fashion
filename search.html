@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tìm kiếm - MindX Store</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="stylesheet" href="assets/css/product-card.css">
     <link rel="shortcut icon" href="https://images.viblo.asia/093de771-a628-468f-8191-b20177842808.jpeg" type="image/x-icon">
-
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100" style="padding-top: 76px;">
     <header>
+        <!-- Header -->
         <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="index.html">MindX Store</a>
@@ -68,72 +65,65 @@
         </nav>
     </header>
 
-    <main class="mt-5 pt-4">
+    <main class="flex-grow-1 py-4">
         <div class="container">
-            <!-- Search Box -->
-            <div class="row justify-content-center mb-4">
-                <div class="col-md-8">
-                    <div class="card shadow-sm">
+            <div class="row g-4">
+                <div class="col-lg-3">
+                    <div class="card">
                         <div class="card-body">
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0">
-                                    <i class="fas fa-search"></i>
-                                </span>
-                                <input type="text" class="form-control border-start-0" id="searchInput" placeholder="Nhập tên sản phẩm bạn muốn tìm...">
-                                <button class="btn btn-primary" id="searchButton">
-                                    <i class="fas fa-search me-2"></i>Tìm kiếm
-                                </button>
+                            <h5 class="card-title mb-4">Bộ lọc tìm kiếm</h5>
+                            <div class="mb-4">
+                                <label class="form-label">Danh mục</label>
+                                <select class="form-select" id="categoryFilter">
+                                    <option value="">Tất cả danh mục</option>
+                                    <option value="men's clothing">Thời trang nam</option>
+                                    <option value="women's clothing">Thời trang nữ</option>
+                                    <option value="jewelery">Trang sức</option>
+                                    <option value="electronics">Điện tử</option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label">Khoảng giá</label>
+                                <select class="form-select" id="priceFilter">
+                                    <option value="">Tất cả giá</option>
+                                    <option value="0-100">Dưới 100.000đ</option>
+                                    <option value="100-200">100.000đ - 200.000đ</option>
+                                    <option value="200-500">200.000đ - 500.000đ</option>
+                                    <option value="Trên 500.000đ">Trên 500.000đ</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Sắp xếp theo</label>
+                                <select class="form-select" id="sortFilter">
+                                    <option value="">Mặc định</option>
+                                    <option value="price-asc">Giá tăng dần</option>
+                                    <option value="price-desc">Giá giảm dần</option>
+                                    <option value="name-asc">Tên A-Z</option>
+                                    <option value="name-desc">Tên Z-A</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Filters -->
-            <div class="row justify-content-center mb-4">
-                <div class="col-md-8">
-                    <div class="d-flex gap-3">
-                        <select class="form-select" id="categoryFilter">
-                            <option value="">Tất cả danh mục</option>
-                            <option value="men's clothing">Thời trang nam</option>
-                            <option value="women's clothing">Thời trang nữ</option>
-                            <option value="jewelery">Trang sức</option>
-                            <option value="electronics">Điện tử</option>
-                        </select>
-                        <select class="form-select" id="priceFilter">
-                            <option value="">Tất cả giá</option>
-                            <option value="0-100">Dưới 100.000₫</option>
-                            <option value="100-300">100.000₫ - 300.000₫</option>
-                            <option value="300-500">300.000₫ - 500.000₫</option>
-                            <option value="500+">Trên 500.000₫</option>
-                        </select>
-                        <select class="form-select" id="sortFilter">
-                            <option value="">Sắp xếp theo</option>
-                            <option value="price-asc">Giá tăng dần</option>
-                            <option value="price-desc">Giá giảm dần</option>
-                            <option value="name-asc">Tên A-Z</option>
-                            <option value="name-desc">Tên Z-A</option>
-                        </select>
+                <div class="col-lg-9">
+                    <div class="d-flex gap-3 mb-4">
+                        <input type="search" class="form-control" id="searchInput" placeholder="Nhập từ khóa tìm kiếm...">
+                        <button class="btn btn-primary px-4" id="searchButton">
+                            <i class="fas fa-search me-2"></i>Tìm kiếm
+                        </button>
                     </div>
-                </div>
-            </div>
-
-            <!-- Search Results -->
-            <div id="searchResults" class="row" style="display: none;">
-                <div class="col-12">
-                    <div class="no-results text-center py-5" style="display: none;">
-                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                        <h4 class="text-muted">Không tìm thấy kết quả phù hợp</h4>
-                    </div>
-                    <div id="productGrid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-                        <!-- Products will be loaded here -->
+                    <div id="searchResults" style="display: none;">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="productGrid"></div>
+                        <div class="no-results text-center py-5" style="display: none;">
+                            <h3>Không tìm thấy sản phẩm</h3>
+                            <p class="text-muted">Vui lòng thử lại với từ khóa khác</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-light mt-5 py-5">
         <div class="container">
             <div class="row g-4">
@@ -180,7 +170,7 @@
             <hr class="my-4">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-md-0">© 2025 All Rights Reserved</p>
+                    <p class="mb-md-0">© 2024 All Rights Reserved</p>
                 </div>
                 <div class="col-md-6">
                     <div class="d-flex justify-content-md-end gap-3">
@@ -198,13 +188,10 @@
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom Scripts -->
     <script src="assets/js/product-actions.js"></script>
-    <script src="assets/js/productTemplate.js"></script>
-    <script src="assets/js/scroll.js"></script>
-    <script src="assets/js/search.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/search.js"></script>
+    <script src="assets/js/scroll.js"></script>
 </body>
 </html>

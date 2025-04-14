@@ -1,35 +1,61 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // Fetch featured products
+    const productGrid = document.getElementById('productGrid');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+
     async function fetchProducts() {
         try {
-            const response = await fetch('https://fakestoreapi.com/products?limit=8');
+            const response = await fetch('https://fakestoreapi.com/products');
             let products = await response.json();
             
-            // Format the products
             products = products.map(product => ({
                 id: product.id,
                 title: product.title,
-                price: Math.round(product.price * 23000), // Convert to VND
+                price: Math.round(product.price * 23000),
                 image: product.image,
                 rating: product.rating.rate,
-                reviews: product.rating.count
+                reviews: product.rating.count,
+                category: product.category,
+                isNew: Math.random() < 0.3,
+                discount: Math.random() < 0.4 ? Math.floor(Math.random() * 30) + 5 : 0
             }));
 
-            const productGrid = document.getElementById('productGrid');
-            if (productGrid) {
-                productGrid.innerHTML = products.map(product => createProductCard(product)).join('');
-            }
+            return products;
         } catch (error) {
             console.error('Error fetching products:', error);
-            const productGrid = document.getElementById('productGrid');
-            if (productGrid) {
-                productGrid.innerHTML = `
-                    <div class="col-12 text-center">
-                        <p>Không thể tải sản phẩm. Vui lòng thử lại sau.</p>
-                    </div>`;
-            }
+            return [];
         }
     }
 
-    await fetchProducts();
+    async function initialize() {
+        const products = await fetchProducts();
+        const featuredProducts = products.slice(0, 8);
+        
+        if (productGrid) {
+            productGrid.innerHTML = featuredProducts.map(renderProduct).join('');
+            addProductEventListeners();
+            updateButtonStates();
+        }
+    }
+
+    initialize();
+
+    // Search functionality
+    if (searchButton && searchInput) {
+        searchButton.addEventListener('click', function() {
+            const query = searchInput.value.trim();
+            if (query) {
+                window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+            }
+        });
+
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
 });

@@ -101,12 +101,10 @@ document.addEventListener('DOMContentLoaded', async function() {
 
         if (priceRange) {
             filtered = filtered.filter(product => {
-                // Trường hợp trên 500.000đ
                 if (priceRange === 'Trên 500.000đ') {
                     return product.price > 500000;
                 }
                 
-                // Các khoảng giá khác
                 const [min, max] = priceRange.split('-').map(Number);
                 if (max) {
                     return product.price >= min * 1000 && product.price <= max * 1000;
@@ -181,10 +179,10 @@ document.addEventListener('DOMContentLoaded', async function() {
                                     ` : ''}
                                 </div>
                                 <div class="d-flex justify-content-between gap-2">
-                                    <button class="btn btn-danger flex-grow-1" onclick="addToCart(${product.id})">
+                                    <button class="btn btn-danger flex-grow-1 add-to-cart-btn" data-product-id="${product.id}">
                                         <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ
                                     </button>
-                                    <button class="btn btn-outline-secondary" onclick="addToWishlist(${product.id})">
+                                    <button class="btn btn-outline-secondary add-to-wishlist-btn" data-product-id="${product.id}">
                                         <i class="fas fa-heart"></i>
                                     </button>
                                 </div>
@@ -195,9 +193,50 @@ document.addEventListener('DOMContentLoaded', async function() {
             `;
         }).join('');
 
-        if (typeof initializeProductActions === 'function') {
-            initializeProductActions();
-        }
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const addToWishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                addToCart(productId);
+                updateButtonStates();
+            });
+        });
+
+        addToWishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                addToWishlist(productId);
+                updateButtonStates();
+            });
+        });
+
+        updateButtonStates();
+    }
+
+    function updateButtonStates() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+        const addToWishlistButtons = document.querySelectorAll('.add-to-wishlist-btn');
+
+        addToCartButtons.forEach(button => {
+            const productId = button.dataset.productId;
+            const existingInCart = cart.includes(productId);
+            if (existingInCart) {
+                button.innerHTML = 'Đã thêm vào giỏ';
+                button.classList.replace('btn-danger', 'btn-secondary');
+                button.disabled = true;
+            }
+        });
+
+        addToWishlistButtons.forEach(button => {
+            const productId = button.dataset.productId;
+            const existingInWishlist = wishlist.includes(productId);
+            if (existingInWishlist) {
+                button.classList.replace('btn-outline-secondary', 'btn-danger');
+                button.disabled = true;
+            }
+        });
     }
 
     function showLoadingState() {

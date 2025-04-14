@@ -1,7 +1,6 @@
 class ProductPage {
     constructor() {
         this.productId = new URLSearchParams(window.location.search).get('id');
-        this.currentProduct = null;
         this.init();
     }
 
@@ -10,11 +9,9 @@ class ProductPage {
             window.location.href = 'index.html';
             return;
         }
-
         await this.loadProduct();
-        this.setupEventListeners();
+        this.setupActionButtons();
         updateBadges();
-        this.updateButtonStates();
     }
 
     async loadProduct() {
@@ -56,12 +53,10 @@ class ProductPage {
         document.getElementById('productDescription').textContent = product.description;
         document.getElementById('productBreadcrumb').textContent = product.title;
 
-        const ratingStars = document.createElement('div');
-        ratingStars.className = 'rating-stars d-inline-block';
-        ratingStars.innerHTML = Array(5).fill('').map((_, index) => 
+        const ratingStars = Array(5).fill('').map((_, index) => 
             `<i class="fas fa-star ${index < Math.floor(product.rating) ? 'text-warning' : 'text-muted'}"></i>`
         ).join('');
-        document.querySelector('.rating').innerHTML = ratingStars.innerHTML;
+        document.querySelector('.rating').innerHTML = ratingStars;
 
         const formattedPrice = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
@@ -86,84 +81,46 @@ class ProductPage {
             categoryLink.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
             categoryLink.href = `category.html?category=${encodeURIComponent(product.category)}`;
         }
+
+        this.updateButtonStates();
+    }
+
+    setupActionButtons() {
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const addToWishlistBtn = document.getElementById('addToWishlistBtn');
+        
+        if (addToCartBtn) {
+            addToCartBtn.onclick = () => {
+                addToCart(this.productId);
+                this.updateButtonStates();
+            };
+        }
+        
+        if (addToWishlistBtn) {
+            addToWishlistBtn.onclick = () => {
+                addToWishlist(this.productId);
+                this.updateButtonStates();
+            };
+        }
     }
 
     updateButtonStates() {
         const addToCartBtn = document.getElementById('addToCartBtn');
         const addToWishlistBtn = document.getElementById('addToWishlistBtn');
         
-        if (addToCartBtn && this.currentProduct) {
-            const existingInCart = cart.find(item => item === this.currentProduct.id);
-            if (existingInCart) {
-                addToCartBtn.textContent = 'Đã thêm vào giỏ hàng';
-                addToCartBtn.classList.remove('btn-danger');
-                addToCartBtn.classList.add('btn-secondary');
-                addToCartBtn.disabled = true;
-            } else {
-                addToCartBtn.textContent = 'Thêm vào giỏ hàng';
-                addToCartBtn.classList.add('btn-danger');
-                addToCartBtn.classList.remove('btn-secondary');
-                addToCartBtn.disabled = false;
-            }
-        }
-
-        if (addToWishlistBtn && this.currentProduct) {
-            const existingInWishlist = wishlist.includes(this.currentProduct.id);
-            if (existingInWishlist) {
-                addToWishlistBtn.classList.add('btn-danger');
-                addToWishlistBtn.classList.remove('btn-outline-secondary');
-                addToWishlistBtn.disabled = true;
-            } else {
-                addToWishlistBtn.classList.remove('btn-danger');
-                addToWishlistBtn.classList.add('btn-outline-secondary');
-                addToWishlistBtn.disabled = false;
-            }
-        }
-    }
-
-    setupEventListeners() {
-        const quantityInput = document.getElementById('quantity');
-        const decreaseBtn = document.getElementById('decreaseQuantity');
-        const increaseBtn = document.getElementById('increaseQuantity');
-
-        if (quantityInput && decreaseBtn && increaseBtn) {
-            decreaseBtn.addEventListener('click', () => {
-                const currentValue = parseInt(quantityInput.value);
-                if (currentValue > 1) {
-                    quantityInput.value = currentValue - 1;
-                }
-            });
-
-            increaseBtn.addEventListener('click', () => {
-                const currentValue = parseInt(quantityInput.value);
-                quantityInput.value = currentValue + 1;
-            });
-
-            quantityInput.addEventListener('change', () => {
-                let value = parseInt(quantityInput.value);
-                if (isNaN(value) || value < 1) {
-                    value = 1;
-                }
-                quantityInput.value = value;
-            });
-        }
-
-        const addToCartBtn = document.getElementById('addToCartBtn');
         if (addToCartBtn) {
-            addToCartBtn.addEventListener('click', () => {
-                if (!this.currentProduct) return;
-                addToCart(this.currentProduct.id);
-                this.updateButtonStates();
-            });
+            const existingInCart = cart.includes(this.productId);
+            addToCartBtn.textContent = existingInCart ? 'Đã thêm vào giỏ hàng' : 'Thêm vào giỏ hàng';
+            addToCartBtn.classList.toggle('btn-secondary', existingInCart);
+            addToCartBtn.classList.toggle('btn-danger', !existingInCart);
+            addToCartBtn.disabled = existingInCart;
         }
-
-        const addToWishlistBtn = document.getElementById('addToWishlistBtn');
+        
         if (addToWishlistBtn) {
-            addToWishlistBtn.addEventListener('click', () => {
-                if (!this.currentProduct) return;
-                addToWishlist(this.currentProduct.id);
-                this.updateButtonStates();
-            });
+            const existingInWishlist = wishlist.includes(this.productId);
+            addToWishlistBtn.classList.toggle('btn-danger', existingInWishlist);
+            addToWishlistBtn.classList.toggle('btn-outline-secondary', !existingInWishlist);
+            addToWishlistBtn.disabled = existingInWishlist;
         }
     }
 

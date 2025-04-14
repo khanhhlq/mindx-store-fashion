@@ -6,12 +6,11 @@
     <title>Chi tiết sản phẩm - MindX Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
     <link rel="shortcut icon" href="https://images.viblo.asia/093de771-a628-468f-8191-b20177842808.jpeg" type="image/x-icon">
-
 </head>
 <body class="d-flex flex-column min-vh-100" style="padding-top: 76px;">
     <header>
-        <!-- Header -->
         <nav class="navbar navbar-expand-lg fixed-top bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="index.html">MindX Store</a>
@@ -64,55 +63,46 @@
         </nav>
     </header>
 
-    <main class="flex-grow-1 py-5">
+    <main class="flex-grow-1 py-4">
         <div class="container">
-            <nav aria-label="breadcrumb" class="mb-4">
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
                     <li class="breadcrumb-item category"><a href="#"></a></li>
-                    <li class="breadcrumb-item active" aria-current="page" id="productBreadcrumb"></li>
+                    <li class="breadcrumb-item active" id="productBreadcrumb" aria-current="page"></li>
                 </ol>
             </nav>
 
-            <div class="row g-4 mb-5" id="productDetail">
-                <div class="col-md-6">
-                    <div class="bg-white p-4 rounded shadow-sm mb-4" style="min-height: 400px;">
-                        <img id="mainImage" src="" alt="Product Image" class="img-fluid" style="max-height: 600px; width: 100%; object-fit: contain;">
-                    </div>
+            <div class="row g-4" id="productDetail">
+                <div class="col-md-5">
+                    <img id="mainImage" class="img-fluid" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
-                <div class="col-md-6">
-                    <div class="bg-white p-4 rounded shadow-sm h-100 d-flex flex-column">
-                        <h1 id="productTitle" class="h2 mb-3"></h1>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            <div class="rating text-warning"></div>
-                            <span id="productRating" class="text-warning"></span>
-                            <span class="text-muted">|</span>
-                            <span id="productReviews" class="text-muted"></span>
-                        </div>
-                        <div class="mb-4">
-                            <h2 id="productPrice" class="h4 text-danger mb-2"></h2>
-                            <div class="d-flex align-items-center gap-2">
-                                <span id="productDiscount" class="badge bg-danger" style="display: none;"></span>
-                                <span id="originalPrice" class="text-decoration-line-through text-muted" style="display: none;"></span>
-                            </div>
-                        </div>
-                        <div class="mb-4 flex-grow-1">
-                            <p id="productDescription" class="text-muted" style="line-height: 1.6;"></p>
-                        </div>
-                        <div class="mt-auto pt-4 border-top">
-                            <div class="d-flex flex-wrap align-items-center gap-3">
-                                <div class="input-group" style="width: 120px;">
-                                    <button class="btn btn-outline-secondary" id="decreaseQuantity" type="button">-</button>
-                                    <input type="number" class="form-control text-center" id="quantity" value="1" min="1">
-                                    <button class="btn btn-outline-secondary" id="increaseQuantity" type="button">+</button>
-                                </div>
-                                <button id="addToCartBtn" class="btn btn-danger px-4 py-2">
-                                    Thêm vào giỏ hàng
-                                </button>
-                                <button id="addToWishlistBtn" class="btn btn-outline-secondary p-2">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                            </div>
+                <div class="col-md-7 d-flex flex-column">
+                    <h1 id="productTitle" class="h2 mb-3"></h1>
+                    
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <div class="rating"></div>
+                        <span id="productRating" class="text-warning"></span>
+                        <span class="text-muted">|</span>
+                        <span id="productReviews" class="text-muted"></span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <h2 id="productPrice" class="h3 text-danger mb-0"></h2>
+                        <span id="productDiscount" class="badge bg-danger" style="display: none;"></span>
+                        <span id="originalPrice" class="text-decoration-line-through text-muted" style="display: none;"></span>
+                    </div>
+
+                    <p id="productDescription" class="text-muted mb-4"></p>
+
+                    <div class="mt-auto">
+                        <div class="d-flex flex-wrap align-items-center gap-3">
+                            <button id="addToCartBtn" class="btn btn-danger px-4">
+                                <i class="fas fa-shopping-cart me-2"></i>Thêm vào giỏ hàng
+                            </button>
+                            <button id="addToWishlistBtn" class="btn btn-outline-secondary">
+                                <i class="fas fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -120,7 +110,7 @@
         </div>
     </main>
 
-    <footer class="bg-light py-5">
+    <footer class="bg-light mt-5 py-5">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-3 col-md-6">
@@ -136,23 +126,23 @@
                 <div class="col-lg-3 col-md-6">
                     <h3 class="h5 mb-3">Tài Khoản</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="track-orders.html" class="text-decoration-none text-muted">Theo Dõi Đơn Hàng</a></li>
-                        <li class="mb-2"><a href="shipping.html" class="text-decoration-none text-muted">Vận Chuyển</a></li>
-                        <li class="mb-2"><a href="wishlist.html" class="text-decoration-none text-muted">Yêu Thích</a></li>
-                        <li class="mb-2"><a href="my-account.html" class="text-decoration-none text-muted">Tài Khoản Của Tôi</a></li>
-                        <li class="mb-2"><a href="order-history.html" class="text-decoration-none text-muted">Lịch Sử Đơn Hàng</a></li>
-                        <li class="mb-2"><a href="returns.html" class="text-decoration-none text-muted">Đổi Trả</a></li>
+                        <li><a href="track-orders.html" class="text-decoration-none text-muted">Theo Dõi Đơn Hàng</a></li>
+                        <li><a href="shipping.html" class="text-decoration-none text-muted">Vận Chuyển</a></li>
+                        <li><a href="wishlist.html" class="text-decoration-none text-muted">Yêu Thích</a></li>
+                        <li><a href="my-account.html" class="text-decoration-none text-muted">Tài Khoản Của Tôi</a></li>
+                        <li><a href="order-history.html" class="text-decoration-none text-muted">Lịch Sử Đơn Hàng</a></li>
+                        <li><a href="returns.html" class="text-decoration-none text-muted">Đổi Trả</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h3 class="h5 mb-3">Thông Tin</h3>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="our-story.html" class="text-decoration-none text-muted">Về Chúng Tôi</a></li>
-                        <li class="mb-2"><a href="careers.html" class="text-decoration-none text-muted">Tuyển Dụng</a></li>
-                        <li class="mb-2"><a href="privacy-policy.html" class="text-decoration-none text-muted">Chính Sách Bảo Mật</a></li>
-                        <li class="mb-2"><a href="terms.html" class="text-decoration-none text-muted">Điều Khoản & Điều Kiện</a></li>
-                        <li class="mb-2"><a href="latest-news.html" class="text-decoration-none text-muted">Tin Tức Mới Nhất</a></li>
-                        <li class="mb-2"><a href="contact.html" class="text-decoration-none text-muted">Liên Hệ</a></li>
+                        <li><a href="our-story.html" class="text-decoration-none text-muted">Về Chúng Tôi</a></li>
+                        <li><a href="careers.html" class="text-decoration-none text-muted">Tuyển Dụng</a></li>
+                        <li><a href="privacy-policy.html" class="text-decoration-none text-muted">Chính Sách Bảo Mật</a></li>
+                        <li><a href="terms.html" class="text-decoration-none text-muted">Điều Khoản & Điều Kiện</a></li>
+                        <li><a href="latest-news.html" class="text-decoration-none text-muted">Tin Tức Mới Nhất</a></li>
+                        <li><a href="contact.html" class="text-decoration-none text-muted">Liên Hệ</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -185,11 +175,7 @@
     </button>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/toast.js"></script>
-    <script src="assets/js/auth.js"></script>
     <script src="assets/js/product-actions.js"></script>
-    <script src="assets/js/cart.js"></script>
-    <script src="assets/js/wishlist.js"></script>
     <script src="assets/js/product.js"></script>
     <script src="assets/js/scroll.js"></script>
 </body>
