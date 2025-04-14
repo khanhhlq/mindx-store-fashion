@@ -161,22 +161,46 @@
             if (registerForm) {
                 registerForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+    
+                    // Basic validation
+                    if (!email || !password || !confirmPassword) {
+                        showToast('Vui lòng điền đầy đủ thông tin', 'danger');
+                        return;
+                    }
+    
+                    // Email validation
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        showToast('Email không hợp lệ', 'danger');
+                        return;
+                    }
+    
+                    // Password validation
+                    if (password.length < 6) {
+                        showToast('Mật khẩu phải có ít nhất 6 ký tự', 'danger');
+                        return;
+                    }
+    
+                    // Confirm password
+                    if (password !== confirmPassword) {
+                        showToast('Mật khẩu không khớp', 'danger');
+                        return;
+                    }
+    
                     try {
-                        const email = document.getElementById('email').value.trim();
-                        const password = document.getElementById('password').value;
-                        const confirmPassword = document.getElementById('confirmPassword').value;
-        
-                        if (password !== confirmPassword) {
-                            throw new Error('Mật khẩu không khớp');
-                        }
-        
                         await auth.register(email, password);
                         showToast('Đăng ký thành công!', 'success');
+                        
+                        // Redirect after successful registration
                         setTimeout(() => {
                             window.location.href = 'login.html';
-                        }, 1500);
+                        }, 2000);
                     } catch (error) {
-                        showToast(error.message, 'error');
+                        showToast(error.message || 'Đăng ký thất bại', 'danger');
                     }
                 });
             }
